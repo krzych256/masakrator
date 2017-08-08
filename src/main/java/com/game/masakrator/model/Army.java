@@ -14,7 +14,7 @@ public class Army {
 	private int id;
 	
 	@ManyToOne
-	private KindOfSoldier kindOfSoldier;
+	private SoldierType soldierType;
 	
 	private int quantity;
 
@@ -26,12 +26,12 @@ public class Army {
 		this.id = id;
 	}
 
-	public KindOfSoldier getKindOfSoldier() {
-		return kindOfSoldier;
+	public SoldierType getSoldierType() {
+		return soldierType;
 	}
 
-	public void setKindOfSoldier(KindOfSoldier kindOfSoldier) {
-		this.kindOfSoldier = kindOfSoldier;
+	public void setSoldierType(SoldierType soldierType) {
+		this.soldierType = soldierType;
 	}
 
 	public int getQuantity() {
