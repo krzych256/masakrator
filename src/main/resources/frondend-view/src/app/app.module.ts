@@ -7,12 +7,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { GameComponent } from './components/game/game.component';
 import { LoginComponent } from './components/login/login.component';
+//import { User } from './components/model/user';
 
 import { UserService } from './services/user.service';
 
 const appRoutes: Routes = [
   {path:'', component:GameComponent},
-  {path:'about', component:GameComponent}
+  {path:'login', component:LoginComponent}
 ];
 
 @NgModule({
