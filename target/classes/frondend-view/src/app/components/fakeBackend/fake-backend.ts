@@ -2,6 +2,7 @@ import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod, XHR
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
 export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOptions, realBackend: XHRBackend) {
+    /*
     // array in local storage for registered users
     let users: any[] = JSON.parse(localStorage.getItem('users')) || [];
 
@@ -11,7 +12,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
         setTimeout(() => {
 
             // authenticate
-            if (connection.request.url.endsWith('/api/authenticate') && connection.request.method === RequestMethod.Post) {
+            if (connection.request.url.endsWith('/api/authenticate2222222') && connection.request.method === RequestMethod.Post) {
                 // get parameters from post request
                 let params = JSON.parse(connection.request.getBody());
 
@@ -42,7 +43,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
             }
 
             // get users
-            if (connection.request.url.endsWith('/api/users') && connection.request.method === RequestMethod.Get) {
+            if (connection.request.url.endsWith('/api/users222222') && connection.request.method === RequestMethod.Get) {
                 // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
                 if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: users })));
@@ -55,7 +56,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
             }
 
             // get user by id
-            if (connection.request.url.match(/\/api\/users\/\d+$/) && connection.request.method === RequestMethod.Get) {
+            if (connection.request.url.match(/\/a222222222222222222pi\/users\/\d+$/) && connection.request.method === RequestMethod.Get) {
                 // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
                 if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     // find user by id in users array
@@ -75,7 +76,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
             }
 
             // create user
-            if (connection.request.url.endsWith('/api/users') && connection.request.method === RequestMethod.Post) {
+            if (connection.request.url.endsWith('/api/u222222222222222222222222sers') && connection.request.method === RequestMethod.Post) {
                 // get new user object from post body
                 let newUser = JSON.parse(connection.request.getBody());
 
@@ -97,7 +98,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
             }
 
             // delete user
-            if (connection.request.url.match(/\/api\/users\/\d+$/) && connection.request.method === RequestMethod.Delete) {
+            if (connection.request.url.match(/\/ap2222222222222222222222222222i\/users\/\d+$/) && connection.request.method === RequestMethod.Delete) {
                 // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
                 if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     // find user by id in users array
@@ -145,12 +146,12 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
 
     });
 
-    return new Http(backend, options);
+    return new Http(backend, options);*/
 };
-
+/*
 export let fakeBackendProvider = {
     // use fake backend in place of Http service for backend-less development
     provide: Http,
     useFactory: fakeBackendFactory,
     deps: [MockBackend, BaseRequestOptions, XHRBackend]
-};
+};*/

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService } from '../../services/alert.service';
 import { AuthenticationService } from '../../services/authentication.service';
+import { AlertComponent } from '../../components/alert/alert.component'
 
 @Component({
     moduleId: module.id,
@@ -26,19 +27,26 @@ export class LoginComponent implements OnInit {
         this.authenticationService.logout();
 
         // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/game';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     login() {
         this.loading = true;
         this.authenticationService.login(this.model.username, this.model.password)
-            .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
+            .subscribe(result => {
+                    if (result === true) {
+                        // login successful
+                        this.router.navigate([this.returnUrl]);
+                    } else {
+                    // login failed
+                    this.alertService.error("błąd");
+                    this.loading = false;
+                    }                    
                 },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
                 });
     }
+
 }

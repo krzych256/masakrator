@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.game.masakrator.dao.UserRepository;
 import com.game.masakrator.model.User;
 
-@Controller
+//@Controller
 public class MainController {
-
+/*
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -36,5 +36,5 @@ public class MainController {
 	@RequestMapping(method = RequestMethod.POST)
 	public void addUser(@RequestBody User user) {
 		userRepository.save(user);
-	}
+	}*/
 }

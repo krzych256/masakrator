@@ -19,7 +19,7 @@ export class RegisterComponent {
         private alertService: AlertService) { }
 
     register() {
-        this.loading = true;
+        this.loading = true;/*
         this.userService.create(this.model)
             .subscribe(
                 data => {
@@ -29,6 +29,6 @@ export class RegisterComponent {
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
-                });
+                });*/
     }
 }

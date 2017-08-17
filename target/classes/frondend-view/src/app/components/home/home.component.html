@@ -1,15 +1,14 @@
-<div>
-    <h1>Witamy w grze</h1>
-    <br>
-    <login-page></login-page>
+<!-- main app container -->
+<div class="jumbotron">
+    <div class="container">       
+        <div class="col-sm-8 col-sm-offset-2">
+            <h1>Welcome in game!</h1>
+            <p>Are you ready for the massacre?</p>
+
+            <a [routerLink]="['/login']">Login</a>
+            <a [routerLink]="['/game']">Game</a>
+            <a [routerLink]="['/admin']">Admin</a>           
+
+        </div>
+    </div>
 </div>
-
-
-
-
-
-
-
-
-
-
