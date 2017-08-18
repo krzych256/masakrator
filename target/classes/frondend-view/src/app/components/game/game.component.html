@@ -4,6 +4,73 @@
     Welcome to game!
   </h1>  
 </div>
+<p>User name: {{currentUser.username}}</p>
+
+<div>
+    <h1>Yours current town</h1><br />
+
+    <table style="width:100%">
+        <tr>
+            <th>Id:</th>
+            <th>Name:</th> 
+            <th>Points:</th>
+            <th>Point X:</th>
+            <th>Point Y:</th>
+            <th>Iron:</th>
+            <th>Wood:</th>
+            <th>Clay:</th>
+            <th>Mana:</th>            
+        </tr>
+        <tr>
+            <td>{{towns?.id}}</td>
+            <td>{{towns?.name}}</td> 
+            <td>{{towns?.points}}</td>
+            <td>{{towns?.pointX}}</td>
+            <td>{{towns?.pointY}}</td>
+            <td>{{towns?.iron}}</td>
+            <td>{{towns?.wood}}</td>
+            <td>{{towns?.clay}}</td>
+            <td>{{towns?.mana}}</td>  
+        </tr>    
+    </table>
+
+    <br />
+    
+    <table style="width:100%">
+        <tr>
+            <th>buildings id:</th>
+            <th>buildings name:</th>
+            <th>buildings level:</th>
+            <th>buildings description:</th>
+        </tr>
+        <tr *ngFor="let building of towns?.buildings">
+            <td>{{building.id}}</td>
+            <td>{{building.name}}</td>
+            <td>{{building.level}}</td>
+            <td>{{building.description}}</td>
+        </tr>
+    </table>
+
+</div>
+
+
+
+
+
+
+<!--
+
+
+    <p *ngFor="let town of towns">
+                <td>{{town.buildings.id}}</td>
+                <td>{{town.buildings.name}}</td>
+                <td>{{town.buildings.level}}</td>
+                <td>{{town.buildings.description}}</td>
+            </p>
+
+
+
+
 {{test}}
 
 <ul>
@@ -49,3 +116,8 @@
 
 
 lolo
+<h1>Town</h1>
+            <div *ngFor="let town of towns">
+            <h4>{{town.name}}</h4>
+            <p>{{town.id}}</p>
+        </div>   -->

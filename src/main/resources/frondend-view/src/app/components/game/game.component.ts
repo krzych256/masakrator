@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { User } from '../../model/user';
+import { Town } from '../../model/town';
 import { GameService } from '../../services/game/game.service';
-import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'game',
@@ -13,46 +13,12 @@ import { UserService } from '../../services/user.service';
 export class GameComponent implements OnInit {
 
   currentUser: User;
-  test: any;
-  town: Town[] = [];
- 
+  towns: Town;   
 
-
-  users: User[] = [];
-  
-
-  constructor(private gameService: GameService, private userService: UserService) {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));       
-    }
+  constructor(private gameService: GameService) { }
 
     ngOnInit() {
-        //this.loadAllUsers();
-        //this.test = JSON.parse(this.gameService.getTest());
-        this.test = this.gameService.getTest();       
-        this.loadAllUsers();
-    }
-
-    deleteUser(id: number) {
-    //    this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
-    }
-
-    private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { this.users = users; });
-        this.gameService.getAll().subscribe(towns => { this.town = towns; });
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.gameService.getTown().subscribe((towns) => {this.towns = towns;});
     }
 }
-
-    //this.userService.getAllUsers().subscribe((users) => { this.user = users })    
- 
-    interface Town {
-        id: number;	
-        name: String;
-        points: number;
-        pointX: number;
-        pointY: number;
-        iron: number;
-        wood: number;
-        clay: number;
-        mana: number;
-    }
-

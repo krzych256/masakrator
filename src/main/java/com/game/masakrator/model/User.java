@@ -4,19 +4,7 @@ import java.util.Date;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -26,8 +14,7 @@ public class User {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "USERNAME", length = 50, unique = true)
@@ -39,16 +26,6 @@ public class User {
     @NotNull
     @Size(min = 4, max = 100)
     private String password;
-
-    @Column(name = "FIRSTNAME", length = 50)
-    @NotNull
-    @Size(min = 4, max = 50)
-    private String firstname;
-
-    @Column(name = "LASTNAME", length = 50)
-    @NotNull
-    @Size(min = 4, max = 50)
-    private String lastname;
 
     @Column(name = "EMAIL", length = 50)
     @NotNull
@@ -65,133 +42,33 @@ public class User {
     private Date lastPasswordResetDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "USER_AUTHORITY",
-            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
+    @JoinTable(name = "USER_AUTHORITY", joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")}, inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
     private List<Authority> authorities;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public List<Authority> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(List<Authority> authorities) {
-        this.authorities = authorities;
-    }
-
-    public Date getLastPasswordResetDate() {
-        return lastPasswordResetDate;
-    }
-
-    public void setLastPasswordResetDate(Date lastPasswordResetDate) {
-        this.lastPasswordResetDate = lastPasswordResetDate;
-    }
-}
-
-
-
-
-/*
-@Entity
-public class User {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-
-	private String username;
-	private String email;
-	private String password;
-	private Boolean enabled;
-	
-	@ManyToMany(fetch = FetchType.EAGER)
-	private List<Authority> authorities;
-	 
-	@Temporal(TemporalType.TIMESTAMP)
-    private Date lastPasswordResetDate;
-
-	
-	private int premiumPoints;
+    @Column(name = "PREMIUM")
+    private int premium;
+    
+    @Column(name = "ALLPOINTS")
 	private int allPoints;
+        
+    @OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "USER_TOWNS", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "TOWN_ID") })
+    private List<Town> towns;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getName() {
+	public String getUsername() {
 		return username;
 	}
 
-	public void setName(String name) {
-		this.username = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -202,20 +79,12 @@ public class User {
 		this.password = password;
 	}
 
-	public int getPremiumPoints() {
-		return premiumPoints;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setPremiumPoints(int premiumPoints) {
-		this.premiumPoints = premiumPoints;
-	}
-
-	public int getAllPoints() {
-		return allPoints;
-	}
-
-	public void setAllPoints(int allPoints) {
-		this.allPoints = allPoints;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Boolean getEnabled() {
@@ -226,6 +95,14 @@ public class User {
 		this.enabled = enabled;
 	}
 
+	public Date getLastPasswordResetDate() {
+		return lastPasswordResetDate;
+	}
+
+	public void setLastPasswordResetDate(Date lastPasswordResetDate) {
+		this.lastPasswordResetDate = lastPasswordResetDate;
+	}
+
 	public List<Authority> getAuthorities() {
 		return authorities;
 	}
@@ -234,12 +111,27 @@ public class User {
 		this.authorities = authorities;
 	}
 
-	public Date getLastPasswordResetDate() {
-		return lastPasswordResetDate;
+	public int getPremium() {
+		return premium;
 	}
 
-	public void setLastPasswordResetDate(Date lastPasswordResetDate) {
-		this.lastPasswordResetDate = lastPasswordResetDate;
+	public void setPremium(int premium) {
+		this.premium = premium;
 	}
-	
-}*/
+
+	public int getAllPoints() {
+		return allPoints;
+	}
+
+	public void setAllPoints(int allPoints) {
+		this.allPoints = allPoints;
+	}
+
+	public List<Town> getTowns() {
+		return towns;
+	}
+
+	public void setTowns(List<Town> towns) {
+		this.towns = towns;
+	}
+}

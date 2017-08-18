@@ -1,22 +1,32 @@
 package com.game.masakrator.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "SOLDIERTYPE")
 public class SoldierType {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-
+	
+	@Column(name = "NAME")    
 	private String name;
+	
+	@Column(name = "DESCRIPTION")    
 	private String description;
+	
+	@Column(name = "STRENGHT")       
 	private int strenght;
+	
+	@Column(name = "DEFENCE")       
 	private int defence;
+	
+	@Column(name = "HP")
 	private int hp;
+	
+	@Column(name = "SPEED")
 	private int speed;
 
 	public int getId() {

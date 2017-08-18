@@ -11,34 +11,34 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class JwtUser implements UserDetails {
 
     private final Long id;
-    private final String username;
-    private final String firstname;
-    private final String lastname;
+    private final String username;    
     private final String password;
     private final String email;
     private final Collection<? extends GrantedAuthority> authorities;
     private final boolean enabled;
     private final Date lastPasswordResetDate;
+    private final int premium;
+    private final int allpoints;
 
     public JwtUser(
           Long id,
-          String username,
-          String firstname,
-          String lastname,
+          String username,          
           String email,
           String password, Collection<? extends GrantedAuthority> authorities,
           boolean enabled,
-          Date lastPasswordResetDate
+          Date lastPasswordResetDate,
+          int premium,
+          int allpoints
     ) {
         this.id = id;
-        this.username = username;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.username = username;       
         this.email = email;
         this.password = password;
         this.authorities = authorities;
         this.enabled = enabled;
         this.lastPasswordResetDate = lastPasswordResetDate;
+        this.premium = premium;
+        this.allpoints = allpoints;
     }
 
     @JsonIgnore
@@ -68,15 +68,7 @@ public class JwtUser implements UserDetails {
     public boolean isCredentialsNonExpired() {
         return true;
     }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
+ 
     public String getEmail() {
         return email;
     }
@@ -101,4 +93,13 @@ public class JwtUser implements UserDetails {
     public Date getLastPasswordResetDate() {
         return lastPasswordResetDate;
     }
+
+	public int getPremium() {
+		return premium;
+	}
+
+	public int getAllpoints() {
+		return allpoints;
+	}  
+    
 }

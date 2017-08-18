@@ -6,9 +6,8 @@ import { HttpModule } from '@angular/http';
 import { routing } from './app.routing';
 import { AuthGuard } from './components/guards/auth.guard';
 
-import { AlertService } from './services/alert.service';
-import { AuthenticationService } from './services/authentication.service';
-import { UserService } from './services/user.service';
+import { AlertService } from './services/alert/alert.service';
+import { AuthenticationService } from './services/authentication/authentication.service';
 import { GameService } from './services/game/game.service';
 
 import { AdminComponent } from './components/admin/admin.component';
@@ -21,9 +20,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { TestComponent } from './components/test/test.component';
 
 
-//import { LoginComponent2 } from './components/login/login.component';
 import { PersonsComponent } from './components/persons/persons.component';
-//import { UserService2 } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -35,25 +32,21 @@ import { PersonsComponent } from './components/persons/persons.component';
     RegisterComponent,
     PersonsComponent,
     AdminComponent,
-    TestComponent   
+    TestComponent,
+      
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    
   ],
   providers: [
     AuthGuard,
     AlertService,
     AuthenticationService,
-    GameService,
-    UserService,
-
-    // providers used to create fake backend
-   /// fakeBackendProvider,
-    //MockBackend,
-    //BaseRequestOptions
+    GameService   
   ],
   bootstrap: [AppComponent]
 })
