@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import com.game.masakrator.model.Authority;
 import com.game.masakrator.model.User;
+import com.game.masakrator.model.UserAuthority;
 
 public final class JwtUserFactory {
 
@@ -20,7 +20,7 @@ public final class JwtUserFactory {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
-                mapToGrantedAuthorities(user.getAuthorities()),
+                mapToGrantedAuthorities(user.getAuthoritis()),
                 user.getEnabled(),
                 user.getLastPasswordResetDate(),
                 user.getPremium(),
@@ -28,9 +28,9 @@ public final class JwtUserFactory {
         );
     }
 
-    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Authority> authorities) {
+    private static List<GrantedAuthority> mapToGrantedAuthorities(List<UserAuthority> authorities) {
         return authorities.stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getName().name()))
+                .map(authority -> new SimpleGrantedAuthority(authority.getAuthority().getName().name()))
                 .collect(Collectors.toList());
     }
 }

@@ -8,13 +8,15 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
+
 @Entity
-@Table(name = "USER")
+@Table(name = "[USER]")
 public class User {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "USERNAME", length = 50, unique = true)
@@ -30,6 +32,7 @@ public class User {
     @Column(name = "EMAIL", length = 50)
     @NotNull
     @Size(min = 4, max = 50)
+    @Email
     private String email;
 
     @Column(name = "ENABLED")
@@ -41,19 +44,17 @@ public class User {
     @NotNull
     private Date lastPasswordResetDate;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "USER_AUTHORITY", joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")}, inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
-    private List<Authority> authorities;
-
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+	private List<UserAuthority> authoritis;
+    
+    @OneToMany(mappedBy="user")
+	private List<UserTown> userTowns;
+    
     @Column(name = "PREMIUM")
     private int premium;
     
     @Column(name = "ALLPOINTS")
 	private int allPoints;
-        
-    @OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "USER_TOWNS", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "TOWN_ID") })
-    private List<Town> towns;
 
 	public Long getId() {
 		return id;
@@ -103,12 +104,20 @@ public class User {
 		this.lastPasswordResetDate = lastPasswordResetDate;
 	}
 
-	public List<Authority> getAuthorities() {
-		return authorities;
+	public List<UserAuthority> getAuthoritis() {
+		return authoritis;
 	}
 
-	public void setAuthorities(List<Authority> authorities) {
-		this.authorities = authorities;
+	public void setAuthoritis(List<UserAuthority> authoritis) {
+		this.authoritis = authoritis;
+	}
+
+	public List<UserTown> getUserTowns() {
+		return userTowns;
+	}
+
+	public void setUserTowns(List<UserTown> userTowns) {
+		this.userTowns = userTowns;
 	}
 
 	public int getPremium() {
@@ -126,12 +135,5 @@ public class User {
 	public void setAllPoints(int allPoints) {
 		this.allPoints = allPoints;
 	}
-
-	public List<Town> getTowns() {
-		return towns;
-	}
-
-	public void setTowns(List<Town> towns) {
-		this.towns = towns;
-	}
+        
 }

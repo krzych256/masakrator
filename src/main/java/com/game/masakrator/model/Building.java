@@ -1,8 +1,10 @@
 package com.game.masakrator.model;
 
+import java.util.List;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "BUILDING")
@@ -10,17 +12,18 @@ public class Building {
 
 	@Id
 	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)	
 	private Long id;
 	
 	@Column(name = "NAME")    
 	private String name;
-	
-	@Column(name = "LEVEL")    
-	private int level;
-	
+		
 	@Column(name = "DESCRIPTION")    
 	private String description;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="building")
+	private List<TownBuilding> buildings;
 
 	public Long getId() {
 		return id;
@@ -38,19 +41,19 @@ public class Building {
 		this.name = name;
 	}
 
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<TownBuilding> getBuildings() {
+		return buildings;
+	}
+
+	public void setBuildings(List<TownBuilding> buildings) {
+		this.buildings = buildings;
 	}
 }

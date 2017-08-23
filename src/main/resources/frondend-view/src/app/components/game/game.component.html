@@ -1,11 +1,92 @@
-<!--The content below is only a placeholder and can be replaced.-->
+<navbar></navbar>
+
 <div style="text-align:center">
   <h1>
-    Welcome to game!
+    Welcome!
   </h1>  
 </div>
 <p>User name: {{currentUser.username}}</p>
+<p>User name: {{currentUserData?.username}}</p>
+<p>Premium points: {{currentUserData?.premium}}</p>
+<p>Ranking points: {{currentUserData?.allPoints}}</p>
 
+<div *ngFor="let town of currentUserData?.userTowns">
+    <h3> Miasto {{town?.town?.name}}</h3>
+    <h3> Miasto {{town?.name}}</h3>
+    
+    <table style="width:100%">
+        <tr>            
+            <th>Name:</th> 
+            <th>Points:</th>
+            <th>Point X:</th>
+            <th>Point Y:</th>
+            <th>Iron:</th>
+            <th>Wood:</th>
+            <th>Clay:</th>
+            <th>Mana:</th>            
+        </tr>
+        <tr>            
+            <td>{{town?.town?.name}}</td> 
+            <td>{{town?.town?.points}}</td>
+            <td>{{town?.town?.pointX}}</td>
+            <td>{{town?.town?.pointY}}</td>
+            <td>{{town?.town?.iron}}</td>
+            <td>{{town?.town?.wood}}</td>
+            <td>{{town?.town?.clay}}</td>
+            <td>{{town?.town?.mana}}</td>  
+        </tr>    
+    </table>
+    <br />
+
+    <table style="width:100%">
+        <tr>            
+            <th>buildings level:</th>
+            <th></th>
+            <th>buildings name:</th>           
+            <th>buildings description:</th>            
+        </tr>
+        <tr *ngFor="let building of town?.town?.buildings">            
+            <td>{{building.level}}</td>
+            <td>
+                <button (click)="upLevel(1)">+</button> / 
+                <button (click)="downLevel()">-</button>                
+            </td>
+            <td>{{building.building.name}}</td>            
+            <td>{{building.building.description}}</td>
+        </tr>
+    </table>
+    <br />
+
+    <table style="width:100%">
+        <tr>            
+            <th>Soldier name:</th>
+            <th>Soldier descryption:</th>           
+            <th>Soldier strenght:</th>
+            <th>Soldier defence:</th>
+            <th>Soldier hp:</th>
+            <th>Soldier speed:</th>
+            <th>Soldiers quantity:</th>
+        </tr>
+        <tr *ngFor="let soldier of town?.town?.townSoldierTypes">            
+            <td>{{soldier.soldierTypes.name}}</td>
+            <td>{{soldier.soldierTypes.description}}</td>
+            <td>{{soldier.soldierTypes.strenght}}</td>
+            <td>{{soldier.soldierTypes.defence}}</td>
+            <td>{{soldier.soldierTypes.hp}}</td>
+            <td>{{soldier.soldierTypes.speed}}</td>                       
+            <td>{{soldier.quantity}}</td>
+        </tr>
+    </table>
+    <br />
+
+</div>
+<p><a [routerLink]="['/login']">Logout</a></p>
+
+
+
+
+
+<!--
 <div>
     <h1>Yours current town</h1><br />
 
@@ -58,7 +139,7 @@
 
 
 
-<!--
+
 
 
     <p *ngFor="let town of towns">

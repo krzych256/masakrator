@@ -11,39 +11,38 @@ public class Authority {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authority_seq")
-    @SequenceGenerator(name = "authority_seq", sequenceName = "authority_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "NAME", length = 50)
+    @Column(name = "NAME")
     @NotNull
     @Enumerated(EnumType.STRING)
     private AuthorityName name;
 
-    @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY)
-    private List<User> users;
+    @OneToMany(mappedBy = "authority", fetch = FetchType.LAZY)
+    private List<UserAuthority> authoritis;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public AuthorityName getName() {
-        return name;
-    }
+	public AuthorityName getName() {
+		return name;
+	}
 
-    public void setName(AuthorityName name) {
-        this.name = name;
-    }
+	public void setName(AuthorityName name) {
+		this.name = name;
+	}
 
-    public List<User> getUsers() {
-        return users;
-    }
+	public List<UserAuthority> getAuthoritis() {
+		return authoritis;
+	}
 
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
+	public void setAuthoritis(List<UserAuthority> authoritis) {
+		this.authoritis = authoritis;
+	}
 }

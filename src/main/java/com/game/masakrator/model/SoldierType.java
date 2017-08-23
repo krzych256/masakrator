@@ -1,6 +1,10 @@
 package com.game.masakrator.model;
 
+import java.util.List;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "SOLDIERTYPE")
@@ -9,7 +13,8 @@ public class SoldierType {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	@JsonIgnore
+	private Long id;
 	
 	@Column(name = "NAME")    
 	private String name;
@@ -29,11 +34,15 @@ public class SoldierType {
 	@Column(name = "SPEED")
 	private int speed;
 
-	public int getId() {
+	@JsonIgnore
+	@OneToMany(mappedBy="soldierTypes")
+	private List<TownSoldierType> soldiers;
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -83,5 +92,13 @@ public class SoldierType {
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
+	}
+
+	public List<TownSoldierType> getSoldiers() {
+		return soldiers;
+	}
+
+	public void setSoldiers(List<TownSoldierType> soldiers) {
+		this.soldiers = soldiers;
 	}
 }

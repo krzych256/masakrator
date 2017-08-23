@@ -14,12 +14,20 @@ export class GameService {
 
     constructor(private http: Http, private authenticationService: AuthenticationService) { }
         
+    getUsernameAndEmail(){
+        return this.http.get("http://localhost:8080/getUsernameAndEmail", {headers: this.headers}).map(res => res.json());
+    } 
+
     getTown(){
         return this.http.get("http://localhost:8080/town", {headers: this.headers}).map(res => res.json());
     } 
 
     getPersons(){
         return this.http.get("http://localhost:8080/persons", {headers: this.headers}).map(res => res.json());
+    } 
+
+    getCurrentUserData(){
+        return this.http.get("http://localhost:8080/logInUser", {headers: this.headers}).map(res => res.json());
     } 
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,11 +29,46 @@ import com.game.masakrator.service.GameService;
 public class GameController {
 
 	@Autowired
-	private GameService gameService;
+	private GameService gameService;	
 	
 	@Autowired
-	private TownRepository townRepository;
+	private UserDetailsService userDetailsService;
+	
+	Long id;	
 		
+	@RequestMapping(path = "/userdata", method = RequestMethod.GET)
+	public User getUserData(HttpServletRequest request) {
+		String token = request.getHeader(tokenHeader);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
+        this.id = user.getId();
+        
+		return gameService.getUserData(user.getId());
+	}
+	
+	@RequestMapping(path = "/getUsernameAndEmail", method = RequestMethod.GET)
+	public JSONObject getUsernameAndEmail() {
+		String username = userRepository.findOne(this.id).getUsername();
+		String email = userRepository.findOne(this.id).getEmail();
+		JSONObject jsonObj = new JSONObject("{\"username\":\"" + username + "\",\"email\":\"" + email + "\"}");
+        
+		return jsonObj;
+	}
+	
+	
+	
+	
+	
+	
+	@RequestMapping(path = "/logInUser", method = RequestMethod.GET)
+	public User getOneUser(HttpServletRequest request) {
+		String token = request.getHeader(tokenHeader);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
+        Long id = user.getId();
+		return gameService.getUserData(id);
+	}
+	
 	@RequestMapping(path = "/town", method = RequestMethod.GET)
 	public Town getOneTown() {		
 		return gameService.getAllDateForFirstLogin();
@@ -50,7 +86,8 @@ public class GameController {
 		return townRepository.townusera();
 				//gameService.getAllDateForFirstLogin();
 	}
-	
+	@Autowired
+	private TownRepository townRepository;
 	
 	
 	

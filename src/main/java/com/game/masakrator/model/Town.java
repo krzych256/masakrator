@@ -6,13 +6,16 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "TOWN")
 public class Town {
 
 	@Id
 	@Column(name = "ID")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)	
+	@JsonIgnore
 	private Long id;
 		
 	@Column(name = "NAME", length = 50)
@@ -41,14 +44,15 @@ public class Town {
 	@Column(name = "MANA")    
 	private int mana;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "TOWN_BUILDINGS", joinColumns = { @JoinColumn(name = "TOWN_ID") }, inverseJoinColumns = { @JoinColumn(name = "BUILDING_ID") })
-	private List<Building> buildings;
+	@OneToMany(mappedBy="town")
+	private List<TownBuilding> buildings;
 			
-	//@OneToMany(mappedBy = "pk.town")//(cascade = CascadeType.ALL)//, fetch = FetchType.LAZY, mappedBy = "stock")
-	//@JoinTable(name = "ARMY", joinColumns = { @JoinColumn(name = "TOWN_ID") }, inverseJoinColumns = { @JoinColumn(name = "ARMY_ID") })
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "town", cascade=CascadeType.ALL)
-	private List<Army> armyDetail;
+	@OneToMany(mappedBy = "town")
+	private List<TownSoldierType> townSoldierTypes;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "town")
+	private List<UserTown> userTowns;
 
 	public Long getId() {
 		return id;
@@ -122,19 +126,28 @@ public class Town {
 		this.mana = mana;
 	}
 
-	public List<Building> getBuildings() {
+	public List<TownBuilding> getBuildings() {
 		return buildings;
 	}
 
-	public void setBuildings(List<Building> buildings) {
+	public void setBuildings(List<TownBuilding> buildings) {
 		this.buildings = buildings;
 	}
 
-	public List<Army> getArmyDetail() {
-		return armyDetail;
+	public List<TownSoldierType> getTownSoldierTypes() {
+		return townSoldierTypes;
 	}
 
-	public void setArmyDetail(List<Army> armyDetail) {
-		this.armyDetail = armyDetail;
+	public void setTownSoldierTypes(List<TownSoldierType> townSoldierTypes) {
+		this.townSoldierTypes = townSoldierTypes;
 	}
+
+	public List<UserTown> getUserTowns() {
+		return userTowns;
+	}
+
+	public void setUserTowns(List<UserTown> userTowns) {
+		this.userTowns = userTowns;
+	}
+	
 }
